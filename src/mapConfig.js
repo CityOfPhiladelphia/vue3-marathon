@@ -186,13 +186,14 @@ const pwdDrawnMapStyle = mergeDeep(imageryInfo,{
   name: 'pwdDrawnMap',
   glyphs: '//fonts.openmaptiles.org/{fontstack}/{range}.pbf',
   sources: {
-    // test: {
-    //   tiles: [
-    //     'https://citygeo-geoserver-test.databridge.phila.gov/geoserver/gwc/service/tms/1.0.0/dor_basemap%3Ador_basemap@3857x512@png/{z}/{y}/{x}.png',
-    //   ],
-    //   type: 'raster',
-    //   tileSize: 512,
-    // },
+    test: {
+      tiles: [
+        'https://citygeo-geoserver-test.databridge.phila.gov/geoserver/gwc/service/wmts/rest/dor_basemap:dor_basemap/raster/3857x512/3857x512:{z}/{y}/{x}?format=image/png',
+        // 'https://citygeo-geoserver-test.databridge.phila.gov/geoserver/gwc/service/tms/1.0.0/dor_basemap%3Ador_basemap@3857x512@png/{z}/{y}/{x}.png',
+      ],
+      type: 'raster',
+      tileSize: 512,
+    },
     pwd: {
       tiles: [
         'https://tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/CityBasemap/MapServer/tile/{z}/{y}/{x}',
@@ -243,16 +244,16 @@ const pwdDrawnMapStyle = mergeDeep(imageryInfo,{
     },
   },
   layers: [
-    // {
-    //   id: 'test',
-    //   source: 'test',
-    //   type: 'raster', 
-    // },
     {
-      id: 'pwd',
-      source: 'pwd',
-      type: 'raster',
+      id: 'test',
+      source: 'test',
+      type: 'raster', 
     },
+    // {
+    //   id: 'pwd',
+    //   source: 'pwd',
+    //   type: 'raster',
+    // },
     {
       id: 'pwdLabels',
       source: 'pwdLabels',
