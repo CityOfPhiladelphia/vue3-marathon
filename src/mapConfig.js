@@ -245,15 +245,10 @@ const pwdDrawnMapStyle = mergeDeep(imageryInfo,{
   },
   layers: [
     {
-      id: 'test',
-      source: 'test',
-      type: 'raster', 
+      id: 'pwd',
+      source: 'pwd',
+      type: 'raster',
     },
-    // {
-    //   id: 'pwd',
-    //   source: 'pwd',
-    //   type: 'raster',
-    // },
     {
       id: 'pwdLabels',
       source: 'pwdLabels',
