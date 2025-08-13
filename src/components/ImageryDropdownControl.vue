@@ -132,9 +132,10 @@ const emitValue = (value) => {
 
 .imagery-dropdown {
   position: absolute !important;
-  top: 11px;
+  top: 52px;
   right: 50px;
   z-index: 2;
+
 }
 
 .imagery-dropdown-button {
@@ -142,6 +143,10 @@ const emitValue = (value) => {
   padding-right: 0px !important;
   padding-top: 3px !important;
   padding-bottom: 3px !important;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(167, 166, 166)
 }
 
 .imagery-dropdown-value {
@@ -152,14 +157,9 @@ const emitValue = (value) => {
   margin-left: 0px !important;
 }
 
-@media 
+@media
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
-  
-  .imagery-dropdown {
-    /* top: 54px; */
-    right: 50px;
-  }
 
   .imagery-dropdown-button {
     padding-top: 1px !important;
@@ -168,7 +168,7 @@ only screen and (max-width: 760px),
 }
 
 .img-src {
-  max-width: 100%; 
+  max-width: 100%;
   border-radius: 5px;
 }
 

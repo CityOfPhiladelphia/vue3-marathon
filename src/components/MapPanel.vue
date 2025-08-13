@@ -33,7 +33,7 @@ import ImageryToggleControl from '@/components/ImageryToggleControl.vue';
 import ImageryDropdownControl from '@/components/ImageryDropdownControl.vue';
 import CyclomediaRecordingsClient from '@/components/recordings-client.js';
 
-watch (
+watch(
   () => MapStore.marathonSelected,
   newMarathon => {
     if (import.meta.env.VITE_DEBUG == 'true') console.log('MapPanel.vue watch marathonSelected, newMarathon:', newMarathon);
@@ -108,7 +108,7 @@ const zoom = computed(() => {
 
 onMounted(async () => {
   // if (import.meta.env.VITE_DEBUG == 'true') console.log('Map.vue onMounted route.params.topic:', route.params.topic, 'route.params.address:', route.params.address);
-  
+
   // create the maplibre map
   // let currentTopicMapStyle = route.params.topic ? $mapConfig.topicStyles[route.params.topic] : 'pwdDrawnMapStyle';
   // let zoom = route.params.address || MapStore.currentAddressCoords.length ? 17 : 12;
@@ -169,7 +169,7 @@ onMounted(async () => {
   map.on('click', 'cyclomediaRecordings', (e) => {
     // if (import.meta.env.VITE_DEBUG == 'true') console.log('cyclomediaRecordings click, e:', e, 'e.features[0]:', e.features[0]);
     e.clickOnLayer = true;
-    MapStore.clickedCyclomediaRecordingCoords = [ e.lngLat.lng, e.lngLat.lat ];
+    MapStore.clickedCyclomediaRecordingCoords = [e.lngLat.lng, e.lngLat.lat];
   });
 
   map.on('mouseenter', 'cyclomediaRecordings', (e) => {
@@ -200,7 +200,7 @@ watch(
     if (import.meta.env.VITE_DEBUG == 'true') console.log('MapStore aisData watch, newAddress:', newAddress);
     if (newAddress.features && newAddress.features[0].geometry.coordinates.length) {
       const newCoords = newAddress.features[0].geometry.coordinates;
-      
+
       MapStore.currentAddressCoords = newCoords;
       map.setCenter(newCoords);
       map.setZoom(17);
@@ -208,7 +208,7 @@ watch(
       const address = point(newCoords);
       map.getSource('addressMarker').setData(address);
       // MapStore.currentAddressCoords = newCoords;
-  
+
       // const popup = document.getElementsByClassName('maplibregl-popup');
       // if (popup.length) {
       //   popup[0].remove();
@@ -226,8 +226,9 @@ const toggleImagery = () => {
   // if (import.meta.env.VITE_DEBUG == 'true') console.log('toggleImagery, map.getStyle:', map.getStyle());
   if (!MapStore.imageryOn) {
     MapStore.imageryOn = true;
-    map.addLayer($mapConfig.mapLayers[imagerySelected.value], 'cyclomediaRecordings')
-    map.addLayer($mapConfig.mapLayers.imageryLabels, 'cyclomediaRecordings')
+    map.removeLayer($mapConfig.mapLayers.pwdBasemap.id)
+    map.addLayer($mapConfig.mapLayers[imagerySelected.value], $mapConfig.mapLayers.pwdLabels.id)
+    map.addLayer($mapConfig.mapLayers.imageryLabels, $mapConfig.mapLayers.pwdLabels.id)
   } else {
     if (import.meta.env.VITE_DEBUG == 'true') console.log('map.getStyle().layers:', map.getStyle().layers);
     MapStore.imageryOn = false;
@@ -249,11 +250,11 @@ const setImagery = async (newImagery) => {
   }
   // if (import.meta.env.VITE_DEBUG == 'true') console.log('setImagery, newImagery:', newImagery, 'oldLayer:', oldLayer, 'imagerySelected.value:', imagerySelected.value);
   MapStore.imagerySelected = newImagery;
-  await map.addLayer($mapConfig.mapLayers[imagerySelected.value], 'cyclomediaRecordings')
+  await map.addLayer($mapConfig.mapLayers[imagerySelected.value], $mapConfig.mapLayers.pwdLabels.id)
   map.removeLayer(oldLayer);
 }
 
-// an object class called CyclomediaRecordingsClient is used for adding the cyclomedia recordings circles to the map 
+// an object class called CyclomediaRecordingsClient is used for adding the cyclomedia recordings circles to the map
 let cyclomediaRecordingsClient = new CyclomediaRecordingsClient(
   'https://atlasapi.cyclomedia.com/api/recording/wfs',
   import.meta.env.VITE_CYCLOMEDIA_USERNAME,
@@ -356,17 +357,17 @@ const updateCyclomediaCameraViewcone = (cycloHFov, cycloYaw) => {
   }
   if (import.meta.env.VITE_DEBUG == 'true') console.log('cyclomediaCameraLngLat:', cyclomediaCameraLngLat);
 
-  var destination1 = destination([ cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1] ], distance, angle1, options);
-  var destination2 = destination([ cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1] ], distance, angle2, options);
+  var destination1 = destination([cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1]], distance, angle1, options);
+  var destination2 = destination([cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1]], distance, angle2, options);
   let data = {
     type: 'Feature',
     geometry: {
       type: 'Polygon',
       coordinates: [[
-        [ cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1] ],
-        [ destination1.geometry.coordinates[0], destination1.geometry.coordinates[1] ],
-        [ destination2.geometry.coordinates[0], destination2.geometry.coordinates[1] ],
-        [ cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1] ],
+        [cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1]],
+        [destination1.geometry.coordinates[0], destination1.geometry.coordinates[1]],
+        [destination2.geometry.coordinates[0], destination2.geometry.coordinates[1]],
+        [cyclomediaCameraLngLat[0], cyclomediaCameraLngLat[1]],
       ]],
     }
   }
@@ -379,16 +380,12 @@ const updateCyclomediaCameraViewcone = (cycloHFov, cycloYaw) => {
 
 <template>
   <full-screen-map-toggle-tab />
-  <div
-    id="map"
-    class="map map-panel"
-  >
+  <div id="map" class="map map-panel">
     <MarathonToggleControl />
-    <ImageryToggleControl @toggle-imagery="toggleImagery" />
-    <ImageryDropdownControl
-      v-if="MapStore.imageryOn"
-      @set-imagery="setImagery"
-    />
+    <div>
+      <ImageryToggleControl @toggle-imagery="toggleImagery" />
+      <ImageryDropdownControl v-if="MapStore.imageryOn" @set-imagery="setImagery" />
+    </div>
   </div>
-  
+
 </template>

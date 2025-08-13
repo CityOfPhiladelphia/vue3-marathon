@@ -67,15 +67,15 @@ button {
   margin-top: -1px;
   width: 34px;
   height: 34px;
-  max-width: 300%; 
+  max-width: 300%;
 }
 
-@media 
+@media
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
   @supports (-webkit-touch-callout: none) {
-    /* CSS specific to iOS devices */ 
+    /* CSS specific to iOS devices */
     .img-src {
       margin-left: -10px !important;
       width: 36x;
