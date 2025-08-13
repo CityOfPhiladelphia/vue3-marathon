@@ -135,6 +135,7 @@ const emitValue = (value) => {
   top: 52px;
   right: 50px;
   z-index: 2;
+
 }
 
 .imagery-dropdown-button {
@@ -142,6 +143,10 @@ const emitValue = (value) => {
   padding-right: 0px !important;
   padding-top: 3px !important;
   padding-bottom: 3px !important;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(167, 166, 166)
 }
 
 .imagery-dropdown-value {
