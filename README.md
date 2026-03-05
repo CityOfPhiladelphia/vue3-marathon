@@ -1,35 +1,13 @@
-# vue3-cyclomedia
+# vue3-marathon
 
-This template should help get you started developing with Vue 3 in Vite.
+Philadelphia Marathon viewer application. Combines an interactive map (MapLibre GL) showing the marathon route with Cyclomedia street-level panoramic imagery and address search.
 
-## Recommended IDE Setup
+Built with Vue 3, Vite, Pinia, and City of Philadelphia UI components.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Setup
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
